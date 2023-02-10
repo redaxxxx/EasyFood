@@ -11,8 +11,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.easyfood.adapters.FavoriteAdapter;
 import com.example.easyfood.adapters.MealsAdapter;
 import com.example.easyfood.data.pojo.Meal;
 import com.example.easyfood.databinding.FragmentFavoritesBinding;
@@ -21,10 +23,10 @@ import com.example.easyfood.ui.activities.MainActivity;
 import com.example.easyfood.ui.activities.MealActivity;
 import com.google.android.material.snackbar.Snackbar;
 
-public class FavoritesFragment extends Fragment implements MealsAdapter.OnItemCLickListener {
+public class FavoritesFragment extends Fragment implements FavoriteAdapter.OnFavoriteItemClickListener {
 
     private HomeViewModel viewModel;
-    private MealsAdapter mFavoriteAdapter;
+    private FavoriteAdapter mFavoriteAdapter;
 
     public static final String MEAL_ID = "com.example.easyfood.ui.fragments.mealId";
     public static final String MEAL_NAME = "com.example.easyfood.ui.fragments.mealName";
@@ -81,10 +83,10 @@ public class FavoritesFragment extends Fragment implements MealsAdapter.OnItemCL
     }
 
     private void prepareRecyclerView() {
-        binding.recFavorites.setLayoutManager(new GridLayoutManager(getActivity(), 2,
-                GridLayoutManager.VERTICAL, false));
+        binding.recFavorites.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,
+                false));
 
-        mFavoriteAdapter = new MealsAdapter(this);
+        mFavoriteAdapter = new FavoriteAdapter(this);
 
         binding.recFavorites.setAdapter(mFavoriteAdapter);
     }
@@ -96,8 +98,9 @@ public class FavoritesFragment extends Fragment implements MealsAdapter.OnItemCL
     }
 
     //When i click on item
+
     @Override
-    public void onItemClick(Meal meal) {
+    public void onClickListener(Meal meal) {
         Intent intent = new Intent(getActivity(), MealActivity.class);
 
         intent.putExtra(MEAL_ID, meal.getIdMeal());

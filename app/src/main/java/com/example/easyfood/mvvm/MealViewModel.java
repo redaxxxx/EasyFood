@@ -2,11 +2,13 @@ package com.example.easyfood.mvvm;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.easyfood.R;
 import com.example.easyfood.data.pojo.Meal;
 import com.example.easyfood.data.pojo.MealList;
 import com.example.easyfood.data.db.MealDatabase;
@@ -23,6 +25,10 @@ public class MealViewModel extends ViewModel {
     private MutableLiveData<Integer> addToFavoritesViewVisibility = new MutableLiveData<>();
     private MutableLiveData<Integer>  youtubeImgViewVisibility = new MutableLiveData<>();
     private MutableLiveData<Integer> detailsViewVisibility = new MutableLiveData<>();
+
+    private MutableLiveData<Integer> checkboxFavoriteVisibility = new MutableLiveData<>();
+
+    private MutableLiveData<Boolean> onCheckboxFavorite = new MutableLiveData<>();
 
     private MealDatabase mealDatabase;
 
@@ -69,12 +75,14 @@ public class MealViewModel extends ViewModel {
         addToFavoritesViewVisibility.setValue(View.GONE);
         detailsViewVisibility.setValue(View.GONE);
         youtubeImgViewVisibility.setValue(View.GONE);
+        checkboxFavoriteVisibility.setValue(View.GONE);
     }
     private void showDetails(){
         progressBarVisibility.setValue(View.GONE);
         addToFavoritesViewVisibility.setValue(View.VISIBLE);
         detailsViewVisibility.setValue(View.VISIBLE);
         youtubeImgViewVisibility.setValue(View.VISIBLE);
+        checkboxFavoriteVisibility.setValue(View.VISIBLE);
     }
 
     public LiveData<Meal> observeMealDetails(){

@@ -14,8 +14,11 @@ import com.example.easyfood.mvvm.MealViewModelFactory;
 import com.example.easyfood.ui.fragments.HomeFragment;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 public class MealActivity extends AppCompatActivity {
@@ -28,6 +31,8 @@ public class MealActivity extends AppCompatActivity {
     private String mealThumb;
     private String youtubeLink;
     private MealViewModel viewModel;
+
+    private boolean isChecked;
 
     private MealDatabase mealDatabase;
 
@@ -106,4 +111,5 @@ public class MealActivity extends AppCompatActivity {
         viewModel.getAddToFavoriteVisibility().observe(this, visibility->mealBinding.addToFavorite.setVisibility(visibility));
         viewModel.getYoutubeImgViewVisibility().observe(this, visibility->mealBinding.imgYoutube.setVisibility(visibility));
     }
+
 }
