@@ -73,4 +73,5 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
     public interface OnFavoriteItemClickListener{
         void onClickListener(Meal meal);
     }
+
 }

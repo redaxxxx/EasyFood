@@ -45,7 +45,7 @@
         android:backgroundTint="@color/accent"
         android:src="@drawable/ic_baseline_favorite_border_24"
         app:layout_anchor="@id/appbar"
-        app:layout_anchorGravity="bottom|end"
+        app:layout_anchorGravity="top|end"
         app:tint="@color/white" />
 
     <androidx.core.widget.NestedScrollView
@@ -54,67 +54,25 @@
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/linear_layout"
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:tabTextAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
-                <TextView
-                    android:id="@+id/categoryTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="Category : Beef"
-                    android:textColor="@color/g_black"
-                    android:drawableLeft="@drawable/ic_baseline_category_24"
-                    android:drawableTint="@color/g_black"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:id="@+id/area_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/g_black"
-                    tools:text="Area : Egypt"
-                    android:drawableLeft="@drawable/ic_baseline_location_on_24"
-                    android:drawableTint="@color/g_black"
-                    android:layout_weight="1"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/instructions_tv"
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/linear_layout"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="5dp"
-                android:text="-Instructions :"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="15sp"/>
+                android:layout_height="700dp" />
 
-            <TextView
-                android:id="@+id/instruction_steps_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/instructions_tv"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="5dp"
-                tools:text="instructions text"
-                android:textColor="@color/black" />
+        </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
     <ImageView

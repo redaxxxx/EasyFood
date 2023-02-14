@@ -9,7 +9,7 @@
     android:paddingEnd="5dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView_favorite_meals"
+        android:id="@+id/cardView_category_meals"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:elevation="3dp"
@@ -30,7 +30,7 @@
         android:id="@+id/favorite_meal_name_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/cardView_favorite_meals"
+        app:layout_constraintTop_toBottomOf="@id/cardView_category_meals"
         tools:text="Meal name"
         android:textSize="17sp"
         android:textStyle="bold"

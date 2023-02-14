@@ -8,6 +8,7 @@ import com.example.easyfood.ui.fragments.HomeFragment;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,7 +36,7 @@ public class CategoryMealsActivity extends AppCompatActivity implements Category
     }
 
     private void prepareRecyclerView() {
-        binding.recMeals.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
+        binding.recMeals.setLayoutManager(new GridLayoutManager(this,2, GridLayoutManager.VERTICAL, false));
         mealsAdapter = new CategoryMealsAdapter(this);
         binding.recMeals.setAdapter(mealsAdapter);
     }
@@ -49,7 +50,7 @@ public class CategoryMealsActivity extends AppCompatActivity implements Category
         viewModel.observeCategoryMeals().observe(this, mealList->{
             String size = String.valueOf(mealList.size());
             binding.categoryCountTv.setText( size +" "+ categoryName);
-            mealsAdapter.setCategoryMealsList(mealList);
+            mealsAdapter.differ.submitList(mealList);
         });
     }
 

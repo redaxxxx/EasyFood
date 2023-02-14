@@ -1,8 +1,12 @@
 package com.example.easyfood.ui.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.example.easyfood.R;
@@ -11,30 +15,34 @@ import com.example.easyfood.databinding.ActivityMealBinding;
 import com.example.easyfood.data.db.MealDatabase;
 import com.example.easyfood.mvvm.MealViewModel;
 import com.example.easyfood.mvvm.MealViewModelFactory;
+import com.example.easyfood.ui.fragments.AboutFragment;
 import com.example.easyfood.ui.fragments.HomeFragment;
+import com.example.easyfood.ui.fragments.IngredientsFragment;
+import com.example.easyfood.ui.fragments.InstructionsFragment;
+import com.google.android.material.tabs.TabLayout;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.Toast;
 
 public class MealActivity extends AppCompatActivity {
 
     private ActivityMealBinding mealBinding;
-
     private Meal mealToInsert = null;
     private String mealId;
     private String mealName;
     private String mealThumb;
+
+    private final Bundle bundle = new Bundle();
+    private String mealInstructions;
     private String youtubeLink;
     private MealViewModel viewModel;
 
     private boolean isChecked;
 
     private MealDatabase mealDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +56,10 @@ public class MealActivity extends AppCompatActivity {
         MealViewModelFactory factory = new MealViewModelFactory(mealDatabase);
         viewModel = new ViewModelProvider(this, factory).get(MealViewModel.class);
 
+
         getMealInformationFromIntent();
+
+        // Setup TabLayout with viewpager
 
         initViews();
 
@@ -56,10 +67,15 @@ public class MealActivity extends AppCompatActivity {
 
         observerDetailsMeal();
 
+        setupViewpager();
+
         onYoutubeImgClick();
 
         buttonFavoriteClick();
+
     }
+
+
 
     private void initViews() {
         Glide.with(getApplicationContext())
@@ -70,6 +86,63 @@ public class MealActivity extends AppCompatActivity {
         mealBinding.collapsingToolbar.setCollapsedTitleTextColor(getResources().getColor(R.color.white));
         mealBinding.collapsingToolbar.setExpandedTitleColor(getResources().getColor(R.color.white));
 
+    }
+
+    private Bundle sendIdMealToViewpagerFrags( ){
+        bundle.putString(HomeFragment.MEAL_ID, mealId);
+        return bundle;
+    }
+
+    private void setupViewpager(){
+        mealBinding.tabLayout.addTab(mealBinding.tabLayout.newTab().setText("Instructions"));
+        mealBinding.tabLayout.addTab(mealBinding.tabLayout.newTab().setText("Ingredients"));
+        mealBinding.tabLayout.addTab(mealBinding.tabLayout.newTab().setText("AboutMeals"));
+        mealBinding.viewPager.setAdapter(new FragmentStateAdapter(getSupportFragmentManager(),getLifecycle()) {
+            @NonNull
+            @Override
+            public Fragment createFragment(int position) {
+                Fragment fragment;
+                    if (position == 0) {
+                        fragment = new InstructionsFragment();
+                        fragment.setArguments(sendIdMealToViewpagerFrags());
+                        return fragment;
+                    } else if (position == 1) {
+                        fragment = new IngredientsFragment();
+                        fragment.setArguments(sendIdMealToViewpagerFrags());
+                        return fragment;
+                    } else if (position == 2){
+                        fragment = new AboutFragment();
+                        fragment.setArguments(sendIdMealToViewpagerFrags());
+                        return fragment;
+                    } else {
+                        return null;
+                    }
+            }
+
+            @Override
+            public int getItemCount() {
+                return 3;
+            }
+        });
+
+        mealBinding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mealBinding.viewPager.setCurrentItem(tab.getPosition());
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+
+        mealBinding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                mealBinding.tabLayout.selectTab(mealBinding.tabLayout.getTabAt(position));
+            }
+        });
     }
 
     private void buttonFavoriteClick(){
@@ -98,9 +171,8 @@ public class MealActivity extends AppCompatActivity {
             @Override
             public void onChanged(Meal meal) {
                 mealToInsert = meal;
-                mealBinding.categoryTextView.setText("Category : "+meal.getStrCategory());
-                mealBinding.areaTv.setText("Area : "+meal.getStrArea());
-                mealBinding.instructionStepsTv.setText(meal.getStrInstructions());
+
+//                mealBinding.instructionStepsTv.setText(meal.getStrInstructions());
                 youtubeLink = meal.getStrYoutube();
 
             }
@@ -111,5 +183,4 @@ public class MealActivity extends AppCompatActivity {
         viewModel.getAddToFavoriteVisibility().observe(this, visibility->mealBinding.addToFavorite.setVisibility(visibility));
         viewModel.getYoutubeImgViewVisibility().observe(this, visibility->mealBinding.imgYoutube.setVisibility(visibility));
     }
-
 }

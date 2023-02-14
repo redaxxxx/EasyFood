@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -36,6 +38,7 @@ CategoriesAdapter.OnItemClickListener{
 
     private static final String LOG_TAG = HomeFragment.class.getSimpleName();
     private FragmentHomeBinding binding;
+
     private HomeViewModel viewModel;
     public static final String MEAL_ID = "com.example.easyfood.ui.fragments.mealId";
     public static final String MEAL_NAME = "com.example.easyfood.ui.fragments.mealName";
@@ -143,9 +146,11 @@ CategoriesAdapter.OnItemClickListener{
     @Override
     public void onItemListener(MealsByCategory meal) {
         Intent intent = new Intent(getActivity(), MealActivity.class);
+
         intent.putExtra(MEAL_ID, meal.getidMeal());
         intent.putExtra(MEAL_NAME, meal.getStrMeal());
         intent.putExtra(MEAL_THUMB, meal.getStrMealThumb());
+
         startActivity(intent);
     }
 
