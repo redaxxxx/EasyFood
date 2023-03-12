@@ -9,13 +9,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.easyfood.Constants;
 import com.example.easyfood.adapters.FavoriteAdapter;
-import com.example.easyfood.adapters.MealsAdapter;
 import com.example.easyfood.data.pojo.Meal;
 import com.example.easyfood.databinding.FragmentFavoritesBinding;
 import com.example.easyfood.mvvm.HomeViewModel;
@@ -106,6 +105,10 @@ public class FavoritesFragment extends Fragment implements FavoriteAdapter.OnFav
         intent.putExtra(MEAL_ID, meal.getIdMeal());
         intent.putExtra(MEAL_NAME, meal.getStrMeal());
         intent.putExtra(MEAL_THUMB, meal.getStrMealThumb());
+        intent.putExtra(Constants.YOUTUBE, meal.getStrYoutube());
+        intent.putExtra(Constants.INSTRUCTION, meal.getStrInstructions());
+        intent.putExtra(Constants.CATEGORY, meal.getStrCategory());
+        intent.putExtra(Constants.AREA, meal.getStrArea());
 
         startActivity(intent);
     }

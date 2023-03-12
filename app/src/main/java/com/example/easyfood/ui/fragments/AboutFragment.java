@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.easyfood.VerifyConnection;
 import com.example.easyfood.data.db.MealDatabase;
 import com.example.easyfood.databinding.FragmentAboutBinding;
 import com.example.easyfood.mvvm.MealViewModel;
@@ -24,6 +25,8 @@ public class AboutFragment extends Fragment {
     private MealViewModel viewModel;
 
     private String mealId;
+    private VerifyConnection verifyConnection;
+
     public AboutFragment() {
         // Required empty public constructor
     }
@@ -34,7 +37,7 @@ public class AboutFragment extends Fragment {
         mDB = MealDatabase.getInstance(getActivity());
         MealViewModelFactory factory = new MealViewModelFactory(mDB);
         viewModel = new ViewModelProvider(this, factory).get(MealViewModel.class);
-
+        verifyConnection = new VerifyConnection(getActivity());
     }
 
     @Override
@@ -53,8 +56,17 @@ public class AboutFragment extends Fragment {
         if (bundle != null){
             mealId = bundle.getString(HomeFragment.MEAL_ID);
         }
-        viewModel.getMealDetails(mealId);
-        observeMealAbout();
+
+        if (verifyConnection.isConnected()){
+            viewModel.getMealDetails(mealId);
+            observeMealAbout();
+        }else {
+            viewModel.getMealById(mealId).observe(getViewLifecycleOwner(), meal -> {
+                binding.categoryTextView.setText(meal.getStrCategory());
+                binding.areaTv.setText(meal.getStrArea());
+            });
+        }
+
     }
 
     private void observeMealAbout(){

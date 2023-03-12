@@ -16,6 +16,14 @@
         android:theme="@style/Theme.EasyFood"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+
+        <activity
+            android:name=".ui.activities.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.LoginActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activities.CategoryMealsActivity"
             android:exported="false" />

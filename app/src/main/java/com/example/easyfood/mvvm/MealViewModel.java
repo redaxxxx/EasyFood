@@ -9,17 +9,21 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.easyfood.R;
+import com.example.easyfood.VerifyConnection;
 import com.example.easyfood.data.pojo.Meal;
 import com.example.easyfood.data.pojo.MealList;
 import com.example.easyfood.data.db.MealDatabase;
 import com.example.easyfood.executors.AppExecutors;
 import com.example.easyfood.data.retrofit.RetrofitInstance;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MealViewModel extends ViewModel {
+
     private MutableLiveData<Meal> mealDetails = new MutableLiveData<>();
     private MutableLiveData<Integer> progressBarVisibility = new MutableLiveData<>();
     private MutableLiveData<Integer> addToFavoritesViewVisibility = new MutableLiveData<>();
@@ -34,7 +38,7 @@ public class MealViewModel extends ViewModel {
 
     public MealViewModel(MealDatabase mealDatabase){
         this.mealDatabase = mealDatabase;
-        showLoading();
+//        showLoading();
     }
 
     public void getMealDetails(String id){
@@ -47,7 +51,6 @@ public class MealViewModel extends ViewModel {
                     mealDetails.postValue(meal);
                     showDetails();
                 }
-                else return;
             }
 
             @Override
@@ -98,6 +101,10 @@ public class MealViewModel extends ViewModel {
                 mealDatabase.mealDao().upsert(meal);
             }
         });
+    }
+
+    public LiveData<Meal> getMealById(String id){
+        return mealDatabase.mealDao().getMealById(id);
     }
 
 }

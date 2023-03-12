@@ -8,6 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.easyfood.data.pojo.Meal;
+import com.example.easyfood.data.pojo.UserTable;
 
 import java.util.List;
 
@@ -26,4 +27,6 @@ public interface MealDao {
     @Query("SELECT * FROM mealInformation")
     LiveData<List<Meal>> getAllDataOFMeals();
 
+    @Query("SELECT * FROM mealInformation WHERE idMeal=:id ")
+    LiveData<Meal> getMealById(String id);
 }

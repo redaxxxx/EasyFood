@@ -7,7 +7,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:cardUseCompatPadding="true"
-    android:elevation="3dp">
+    android:elevation="5dp"
+    android:background="@drawable/popular_rv_background">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -17,11 +18,12 @@
     <ImageView
         android:id="@+id/img_category"
         android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="90dp"
         android:scaleType="fitCenter"
-        android:src="@color/accent"/>
+        android:src="@color/accent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/category_name_tv"

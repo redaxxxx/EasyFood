@@ -11,12 +11,12 @@
         android:id="@+id/instructions_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Instructions:"
+        android:text="@string/instructionsTV"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="5dp"
         android:layout_marginStart="5dp"
         android:textSize="15sp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textStyle="bold"/>
 
     <TextView
@@ -27,6 +27,6 @@
         android:layout_marginTop="5dp"
         android:layout_marginStart="5dp"
         tools:text="display instructions"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

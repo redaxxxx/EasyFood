@@ -11,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.easyfood.VerifyConnection;
 import com.example.easyfood.data.db.MealDatabase;
+import com.example.easyfood.data.pojo.Meal;
 import com.example.easyfood.databinding.FragmentIngredientsBinding;
 import com.example.easyfood.mvvm.MealViewModel;
 import com.example.easyfood.mvvm.MealViewModelFactory;
@@ -24,6 +26,8 @@ public class IngredientsFragment extends Fragment {
     private MealDatabase mDB;
 
     String idMeal;
+    private VerifyConnection verifyConnectio;
+
     public IngredientsFragment() {
         // Required empty public constructor
     }
@@ -36,6 +40,7 @@ public class IngredientsFragment extends Fragment {
         mDB = MealDatabase.getInstance(getActivity());
         MealViewModelFactory factory = new MealViewModelFactory(mDB);
         viewModel = new ViewModelProvider(this, factory).get(MealViewModel.class);
+        verifyConnectio = new VerifyConnection(getActivity());
 
     }
 
@@ -55,24 +60,35 @@ public class IngredientsFragment extends Fragment {
         if (bundle != null) {
            idMeal =  bundle.getString(HomeFragment.MEAL_ID);
         }
-        viewModel.getMealDetails(idMeal);
-        observeMealIngredients();
+
+        if (verifyConnectio.isConnected()){
+            viewModel.getMealDetails(idMeal);
+            observeMealIngredients();
+        }else {
+            viewModel.getMealById(idMeal).observe(getViewLifecycleOwner(), meal -> {
+                getIngredients(meal);
+            });
+        }
+
     }
 
 
     private void observeMealIngredients(){
         viewModel.observeMealDetails().observe(getViewLifecycleOwner(), meal -> {
-            binding.ingredient1Tv.setText(meal.getStrMeasure1() +" "+ meal.getStrIngredient1());
-            binding.ingredient2Tv.setText(meal.getStrMeasure2() +" "+ meal.getStrIngredient2());
-            binding.ingredient3Tv.setText(meal.getStrMeasure3() +" "+ meal.getStrIngredient3());
-            binding.ingredient4Tv.setText(meal.getStrMeasure4() +" "+ meal.getStrIngredient4());
-            binding.ingredient5Tv.setText(meal.getStrMeasure5() +" "+ meal.getStrIngredient5());
-            binding.ingredient6Tv.setText(meal.getStrMeasure6() +" "+ meal.getStrIngredient6());
-            binding.ingredient7Tv.setText(meal.getStrMeasure7() +" "+ meal.getStrIngredient7());
-            binding.ingredient8Tv.setText(meal.getStrMeasure8() +" "+ meal.getStrIngredient8());
-            binding.ingredient9Tv.setText(meal.getStrMeasure9() +" "+ meal.getStrIngredient9());
+            getIngredients(meal);
 
         });
+    }
+    public void getIngredients(Meal meal){
+        binding.ingredient1Tv.setText(meal.getStrMeasure1() +" "+ meal.getStrIngredient1());
+        binding.ingredient2Tv.setText(meal.getStrMeasure2() +" "+ meal.getStrIngredient2());
+        binding.ingredient3Tv.setText(meal.getStrMeasure3() +" "+ meal.getStrIngredient3());
+        binding.ingredient4Tv.setText(meal.getStrMeasure4() +" "+ meal.getStrIngredient4());
+        binding.ingredient5Tv.setText(meal.getStrMeasure5() +" "+ meal.getStrIngredient5());
+        binding.ingredient6Tv.setText(meal.getStrMeasure6() +" "+ meal.getStrIngredient6());
+        binding.ingredient7Tv.setText(meal.getStrMeasure7() +" "+ meal.getStrIngredient7());
+        binding.ingredient8Tv.setText(meal.getStrMeasure8() +" "+ meal.getStrIngredient8());
+        binding.ingredient9Tv.setText(meal.getStrMeasure9() +" "+ meal.getStrIngredient9());
     }
 
 }

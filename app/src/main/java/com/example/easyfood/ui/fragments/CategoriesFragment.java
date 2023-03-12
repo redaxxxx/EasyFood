@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.easyfood.adapters.CategoriesAdapter;
 import com.example.easyfood.data.pojo.CategoryList.Category;
-import com.example.easyfood.databinding.CategoryListItemBinding;
 import com.example.easyfood.databinding.FragmentCategoriesBinding;
 import com.example.easyfood.mvvm.HomeViewModel;
 import com.example.easyfood.ui.activities.CategoryMealsActivity;
@@ -53,7 +52,7 @@ public class CategoriesFragment extends Fragment implements CategoriesAdapter.On
 
     private void prepareRecyclerView() {
 
-        binding.recyclerCategories.setLayoutManager(new GridLayoutManager(getActivity(), 3,
+        binding.recyclerCategories.setLayoutManager(new GridLayoutManager(getActivity(), 2,
                 GridLayoutManager.VERTICAL, false));
 
         categoriesAdapter = new CategoriesAdapter(this);

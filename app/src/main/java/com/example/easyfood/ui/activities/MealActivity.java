@@ -9,7 +9,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
+import com.example.easyfood.Constants;
 import com.example.easyfood.R;
+import com.example.easyfood.VerifyConnection;
 import com.example.easyfood.data.pojo.Meal;
 import com.example.easyfood.databinding.ActivityMealBinding;
 import com.example.easyfood.data.db.MealDatabase;
@@ -42,6 +44,9 @@ public class MealActivity extends AppCompatActivity {
     private boolean isChecked;
 
     private MealDatabase mealDatabase;
+    private String mealCategory;
+    private String mealArea;
+    private VerifyConnection verifyConnection;
 
 
     @Override
@@ -56,6 +61,7 @@ public class MealActivity extends AppCompatActivity {
         MealViewModelFactory factory = new MealViewModelFactory(mealDatabase);
         viewModel = new ViewModelProvider(this, factory).get(MealViewModel.class);
 
+        verifyConnection = new VerifyConnection(this);
 
         getMealInformationFromIntent();
 
@@ -74,8 +80,6 @@ public class MealActivity extends AppCompatActivity {
         buttonFavoriteClick();
 
     }
-
-
 
     private void initViews() {
         Glide.with(getApplicationContext())
@@ -164,6 +168,10 @@ public class MealActivity extends AppCompatActivity {
         mealId = intent.getStringExtra(HomeFragment.MEAL_ID);
         mealName = intent.getStringExtra(HomeFragment.MEAL_NAME);
         mealThumb = intent.getStringExtra(HomeFragment.MEAL_THUMB);
+//        youtubeLink = intent.getStringExtra(Constants.YOUTUBE);
+//        mealCategory = intent.getStringExtra(Constants.CATEGORY);
+//        mealInstructions = intent.getStringExtra(Constants.INSTRUCTION);
+//        mealArea = intent.getStringExtra(Constants.AREA);
     }
 
     private void observerDetailsMeal(){

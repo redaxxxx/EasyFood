@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "19717871199",
+    "project_id": "easyfood-fa43c",
+    "storage_bucket": "easyfood-fa43c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19717871199:android:0a997f4b0d5fcbdb17edea",
+        "android_client_info": {
+          "package_name": "com.example.easyfood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19717871199-9k595cbv4d4d25j388goeo57lvkee16a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvnbvTipE_R_LLgwJUnTmc0EGl6iUOgCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19717871199-9k595cbv4d4d25j388goeo57lvkee16a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

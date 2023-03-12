@@ -19,7 +19,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:queryHint="Search Meals..."
-        app:iconifiedByDefault="false"/>
+        app:iconifiedByDefault="false"
+        android:backgroundTint="@color/white"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_meals_rec_view"

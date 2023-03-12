@@ -8,8 +8,9 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.example.easyfood.data.pojo.Meal;
+import com.example.easyfood.data.pojo.UserTable;
 
-@Database(entities = {Meal.class}, version = 1)
+@Database(entities = {Meal.class, UserTable.class}, version = 1)
 @TypeConverters({DateTypeConverter.class})
 public abstract class MealDatabase extends RoomDatabase {
 
@@ -33,4 +34,5 @@ public abstract class MealDatabase extends RoomDatabase {
     }
 
     public abstract MealDao mealDao();
+    public abstract UserDao userDao();
 }
